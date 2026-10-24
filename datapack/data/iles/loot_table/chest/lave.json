@@ -1,0 +1,58 @@
+{
+ "type": "minecraft:chest",
+ "pools": [
+  {
+   "rolls": 3,
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:potion",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": 1
+      },
+      {
+       "function": "minecraft:set_potion",
+       "id": "minecraft:fire_resistance"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:golden_apple",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:diamond",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "type": "minecraft:uniform",
+        "min": 3,
+        "max": 6
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "type": "minecraft:chest",
+ "pools": [
+  {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:stick",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": 10
+      },
+      {
+       "function": "minecraft:set_name",
+       "name": {
+        "text": "Bâton légendaire",
+        "color": "yellow"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:oak_sapling",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": 1
+      }
+     ],
+     "conditions": [
+      {
+       "condition": "minecraft:random_chance",
+       "chance": 0.5
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "type": "minecraft:chest",
+ "pools": [
+  {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:stick",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": 10
+      },
+      {
+       "function": "minecraft:set_name",
+       "name": {
+        "text": "Bâton légendaire",
+        "color": "yellow"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

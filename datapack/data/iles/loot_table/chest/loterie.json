@@ -1,0 +1,35 @@
+{
+ "type": "minecraft:chest",
+ "pools": [
+  {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:loot_table",
+     "value": "iles:chest/jackpot",
+     "weight": 2
+    },
+    {
+     "type": "minecraft:loot_table",
+     "value": "iles:chest/correct",
+     "weight": 5
+    },
+    {
+     "type": "minecraft:loot_table",
+     "value": "iles:chest/nul",
+     "weight": 6
+    },
+    {
+     "type": "minecraft:loot_table",
+     "value": "iles:chest/ultra_nul",
+     "weight": 3
+    },
+    {
+     "type": "minecraft:loot_table",
+     "value": "iles:chest/tnt_blague",
+     "weight": 1
+    }
+   ]
+  }
+ ]
+}

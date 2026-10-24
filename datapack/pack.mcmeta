@@ -1,0 +1,13 @@
+{
+ "pack": {
+  "description": "Îles du Chaos - une nouvelle île chaque jour (MC 26.2)",
+  "min_format": [
+   75,
+   0
+  ],
+  "max_format": [
+   199,
+   0
+  ]
+ }
+}

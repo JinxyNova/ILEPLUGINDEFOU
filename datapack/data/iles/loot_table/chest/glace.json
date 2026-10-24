@@ -1,0 +1,92 @@
+{
+ "type": "minecraft:chest",
+ "pools": [
+  {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:oak_boat",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:cod",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "type": "minecraft:uniform",
+        "min": 8,
+        "max": 16
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:salmon",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "type": "minecraft:uniform",
+        "min": 4,
+        "max": 8
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:blue_ice",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": 8
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "rolls": 1,
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "minecraft:iron_ingot",
+     "functions": [
+      {
+       "function": "minecraft:set_count",
+       "count": {
+        "type": "minecraft:uniform",
+        "min": 4,
+        "max": 8
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

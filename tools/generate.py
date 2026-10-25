@@ -58,9 +58,14 @@ ISLANDS=[]  # list of (key, lines)
 def add(key,lines): ISLANDS.append((key,lines))
 
 # ---------- start island ----------
-S=base('grass_block','dirt','stone',8,'plains')
-S+=tree(-3,-3,5)+[chest((3,1,2),'start','Coffre de départ','west'),sb((1,1,-3),'poppy'),sb((-1,1,4),'dandelion'),
-   fill((4,0,-4),(5,0,-3),'water')]
+# Ile de depart : 2x2 chunks. Placee en (0,100,0), elle occupe x,z de -15 a 15,
+# donc exactement les chunks (-1,-1) (0,-1) (-1,0) (0,0) = 4 chunks.
+S=base('grass_block','dirt','stone',15)
+S.append('fillbiome ~-16 ~-10 ~-16 ~15 ~12 ~15 minecraft:plains')
+for x,z in [(-3,-3),(-10,6),(9,9),(-8,-11),(11,-9)]: S+=tree(x,z,5)
+S+=[chest((3,1,2),'start','Coffre de départ','west'),
+    sb((1,1,-3),'poppy'),sb((-1,1,4),'dandelion'),sb((6,1,6),'poppy'),sb((-6,1,2),'dandelion'),sb((0,1,9),'poppy'),
+    fill((4,0,-5),(8,0,-3),'water')]
 wf('island/start',S)
 
 # 1 foret
@@ -313,20 +318,20 @@ wf('island/dispatch',[f'execute if score #isle iles matches {i} run function ile
 # ---------- core ----------
 wf('load',[
  'scoreboard objectives add iles dummy',
- 'scoreboard players set #c20 iles 20','scoreboard players set #c8 iles 8','scoreboard players set #c4 iles 4','scoreboard players set #c36 iles 36',
+ 'scoreboard players set #c20 iles 20','scoreboard players set #c8 iles 8','scoreboard players set #c4 iles 4','scoreboard players set #c40 iles 40',
  'execute unless score #duree iles matches 1.. run scoreboard players set #duree iles 6000',
  'execute unless score #on iles matches 0..1 run scoreboard players set #on iles 0',
  'bossbar add iles:next {"text":"Prochaine île"}',
  'bossbar set iles:next color yellow','bossbar set iles:next visible false',
  'tellraw @a [{"text":"[Îles] ","color":"gold","bold":true},{"text":"Datapack chargé. Lance-le avec /function iles:start","color":"yellow"}]'])
 wf('start',[
- 'scoreboard players set #c20 iles 20','scoreboard players set #c8 iles 8','scoreboard players set #c4 iles 4','scoreboard players set #c36 iles 36',
+ 'scoreboard players set #c20 iles 20','scoreboard players set #c8 iles 8','scoreboard players set #c4 iles 4','scoreboard players set #c40 iles 40',
  'execute unless score #duree iles matches 1.. run scoreboard players set #duree iles 6000',
  'scoreboard players set #on iles 0','kill @e[type=marker,tag=iles_sink]',
- 'forceload add -16 -16 16 16','schedule function iles:start2 10t'])
+ 'forceload add -16 -16 15 15','schedule function iles:start2 10t'])
 wf('start2',[
  'execute positioned 0 100 0 run function iles:island/start',
- 'forceload remove -16 -16 16 16',
+ 'forceload remove -16 -16 15 15',
  'setworldspawn 0 101 0','execute as @a run spawnpoint @s 0 101 0','tp @a 0 101 0',
  'scoreboard players set #jour iles 1','scoreboard players operation #timer iles = #duree iles',
  'scoreboard players set #t20 iles 0','scoreboard players set #sinkt iles 0','scoreboard players set #glue iles 0','scoreboard players set #on iles 1',
@@ -387,8 +392,8 @@ pn=['scoreboard players operation #idx iles = #jour iles','scoreboard players re
 for d,(dx,dz) in enumerate(dirs):
     pn.append(f'execute if score #dir iles matches {d} run scoreboard players set #dx iles {dx}')
     pn.append(f'execute if score #dir iles matches {d} run scoreboard players set #dz iles {dz}')
-pn+=['scoreboard players operation #x iles = #dx iles','scoreboard players operation #x iles *= #ring iles','scoreboard players operation #x iles *= #c36 iles',
-     'scoreboard players operation #z iles = #dz iles','scoreboard players operation #z iles *= #ring iles','scoreboard players operation #z iles *= #c36 iles',
+pn+=['scoreboard players operation #x iles = #dx iles','scoreboard players operation #x iles *= #ring iles','scoreboard players operation #x iles *= #c40 iles',
+     'scoreboard players operation #z iles = #dz iles','scoreboard players operation #z iles *= #ring iles','scoreboard players operation #z iles *= #c40 iles',
      'scoreboard players set #y iles 100']
 wf('pos_normal',pn)
 wf('pos_head',['tag @a remove iles_target','tag @r add iles_target',
@@ -397,7 +402,7 @@ wf('pos_head',['tag @a remove iles_target','tag @r add iles_target',
  'execute store result score #z iles run data get entity @a[tag=iles_target,limit=1] Pos[2]',
  'scoreboard players add #y iles 14','tag @a remove iles_target'])
 pg=['scoreboard players add #glue iles 1','scoreboard players operation #g iles = #glue iles','scoreboard players operation #g iles %= #c4 iles','scoreboard players set #y iles 100']
-for g,(x,z) in enumerate([(14,0),(0,14),(-14,0),(0,-14)]):
+for g,(x,z) in enumerate([(20,0),(0,20),(-20,0),(0,-20)]):
     pg.append(f'execute if score #g iles matches {g} run scoreboard players set #x iles {x}')
     pg.append(f'execute if score #g iles matches {g} run scoreboard players set #z iles {z}')
 wf('pos_glued',pg)
@@ -524,13 +529,13 @@ wf('cata_on',['scoreboard players set #evon iles 1','bossbar set iles:cata visib
 wf('cata_off',['scoreboard players set #evon iles 0','bossbar set iles:cata visible false','tellraw @a {"text":"[Îles] Catastrophes désactivées.","color":"green"}'])
 counters=['meteor','tnt','anvil','melon','storm','quake','tornado','blizzard']
 RESET=[sc(c,0) for c in counters]+['kill @e[type=marker,tag=iles_flood]',f'execute as @a run attribute @s minecraft:scale base set 1']
-CONST=['scoreboard players set #c20 iles 20','scoreboard players set #c8 iles 8','scoreboard players set #c4 iles 4','scoreboard players set #c36 iles 36','scoreboard players set #c2 iles 2','scoreboard players set #c10 iles 10']
+CONST=['scoreboard players set #c20 iles 20','scoreboard players set #c8 iles 8','scoreboard players set #c4 iles 4','scoreboard players set #c40 iles 40','scoreboard players set #c2 iles 2','scoreboard players set #c10 iles 10']
 DEF=['execute unless score #duree iles matches 1.. run scoreboard players set #duree iles 6000','execute unless score #evduree iles matches 1.. run scoreboard players set #evduree iles 1800','execute unless score #evon iles matches 0..1 run scoreboard players set #evon iles 1']
 wf('load',['scoreboard objectives add iles dummy']+CONST+DEF+['execute unless score #on iles matches 0..1 run scoreboard players set #on iles 0',
  'bossbar add iles:next {"text":"Prochaine île"}','bossbar set iles:next color yellow','bossbar set iles:next visible false',
  'bossbar add iles:cata {"text":"Catastrophe"}','bossbar set iles:cata color red','bossbar set iles:cata visible false',
  'tellraw @a [{"text":"[Îles] ","color":"gold","bold":true},{"text":"Datapack chargé. Lance-le avec /function iles:start","color":"yellow"}]'])
-wf('start',CONST+DEF+['scoreboard players set #on iles 0','kill @e[type=marker,tag=iles_sink]']+RESET+['forceload add -16 -16 16 16','schedule function iles:start2 10t'])
+wf('start',CONST+DEF+['scoreboard players set #on iles 0','kill @e[type=marker,tag=iles_sink]']+RESET+['forceload add -16 -16 15 15','schedule function iles:start2 10t'])
 s2=open(f'{FN}/start2.mcfunction',encoding='utf-8').read().split('\n')
 s2=[l for l in s2 if l]
 s2+=['scoreboard players operation #evtimer iles = #evduree iles','execute if score #evon iles matches 1 run bossbar set iles:cata visible true']

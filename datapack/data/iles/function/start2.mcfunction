@@ -1,5 +1,5 @@
 execute positioned 0 100 0 run function iles:island/start
-forceload remove -16 -16 16 16
+forceload remove -16 -16 15 15
 setworldspawn 0 101 0
 execute as @a run spawnpoint @s 0 101 0
 tp @a 0 101 0

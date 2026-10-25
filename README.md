@@ -22,7 +22,7 @@ Pensé pour les vidéos et les lives : tout est visuel, drôle et configurable.
 
 | Commande | Effet |
 |---|---|
-| `/function iles:start` | Place l'île de départ, téléporte tout le monde, lance le jeu |
+| `/function iles:start` | Place l'île de départ (4 chunks), téléporte tout le monde, lance le jeu |
 | `/function iles:stop` | Arrête tout |
 | `/function iles:skip` | Fait apparaître l'île suivante tout de suite |
 | `/function iles:cata_now` | Déclenche une catastrophe aléatoire |
@@ -116,7 +116,7 @@ GitHub Actions valide le datapack, crée le zip et publie la release automatique
 
 - Le datapack n'a pas été testé sur toutes les configs : ouvre une **issue** avec la version de Minecraft et le message d'erreur (`logs/latest.log`).
 - Dans un monde "Void", tu peux tomber dans le vide avant d'avoir lancé `iles:start` : reste en Créatif (vol) jusqu'au `start`.
-- Les îles sont espacées de 36 blocs : il faut construire des ponts.
+- L'île de départ fait 4 chunks (2×2, environ 31×31 blocs) ; les autres îles sont espacées de 40 blocs : il faut construire des ponts.
 
 ## 🎥 Utilisation en vidéo
 

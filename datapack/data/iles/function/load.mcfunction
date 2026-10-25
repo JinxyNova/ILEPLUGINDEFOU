@@ -2,7 +2,7 @@ scoreboard objectives add iles dummy
 scoreboard players set #c20 iles 20
 scoreboard players set #c8 iles 8
 scoreboard players set #c4 iles 4
-scoreboard players set #c36 iles 36
+scoreboard players set #c40 iles 40
 scoreboard players set #c2 iles 2
 scoreboard players set #c10 iles 10
 execute unless score #duree iles matches 1.. run scoreboard players set #duree iles 6000
